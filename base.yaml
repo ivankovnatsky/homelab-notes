@@ -29,17 +29,14 @@ spec:
       containers:
       - name: test-container
         image: ubuntu:latest
-        command: ["sleep", "infinity"]
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            apt-get update && apt-get install -y pv
+            sleep infinity
         volumeMounts:
         - name: local-storage
           mountPath: /data
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "500m"
-          limits:
-            memory: "2Gi"
-            cpu: "1"
       volumes:
       - name: local-storage
         persistentVolumeClaim:
